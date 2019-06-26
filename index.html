@@ -8,7 +8,7 @@
             <div class="navbar navbar-dark bg-primary shadow-sm">
               <div class="container d-flex justify-content-between">
                 <a href="#" class="navbar-brand d-flex align-items-center">
-                  <strong>Mobile App User Review Classification With Multi-Label Active Learning</strong>
+                  <strong>Detection of Performance Regression Introducing Code Changes Using Static and Dynamic Metrics</strong>
                 </a>
               </div>
             </div>
@@ -18,15 +18,167 @@
 
             <section class="jumbotron text-center mb-0">
               <div class="container">
-                <h1 class="jumbotron-heading">A Multi-label Active Learning Approach for Mobile App User Review Classication</h1>
-                <p class="lead text-muted">Paper accepted in The 12th International Conference on Knowledge Science, Engineering and Management (KSEM 2019)</p>
+                <h1 class="jumbotron-heading">Detection of Performance Regression Introducing Code Changes Using Static and Dynamic Metrics</h1>
+                <p class="lead text-muted">Paper accepted in The 11th Symposium on Search-Based Software Engineering (SSBSE 2019)</p>
               </div>
             </section>
 
             <section class="p-5 border-top">
                     <div class="container">
                     <h4>Abstract</h4>
-                      <p align="justify"> User reviews of mobile applications convey useful feedback from users, e.g. feature requests, bug descriptions, etc. The increasing number of reviews that users submit daily makes it difficult for developers to manually analyze and classify them into proper review categories. Moreover, several review messages may contain more than one information. In this paper, we propose to use multi-label active learning as a convenient solution to the problem of mobile app user reviews classification. An unlabeled and structured dataset was built from the initially unstructured large set of review messages. Moreover, in order to reduce the effort needed to assign labels to each instance in the large constructed dataset, we opted for an Active Learning approach. Experimental results have shown that, by actively querying an oracle for labels during training a binary relevance-based classifier (with logistic regression as a base classifier), we obtained a classifier that outperformed well-known classifiers in terms of performance without the need to label the whole dataset.</p>
+                      <p align="justify">Performance regression testing is highly expensive as it delays system development when optimally conducted after each code change. Therefore, it is important to prioritize the schedule of performance tests
+by executing them only when a newly committed change is most likely to introduce performance regression. This paper introduces a novel formulation of the detection of performance regression introducing code changes as an optimization problem. Static and dynamic metrics are combined
+to generate a detection rule, which is being optimized in terms of its ability to flag problematic code changes, and avoid false positives. We evaluated our approach using performance issues, extracted from the Git
+project. Results show the eectiveness of our approach in accurately detecting performance regression introducing code changes compared with state-of-the-art techniques. Moreover, our suggested detection rules were found to be robust to the software changes over time, which reduces the
+overhead of updating them frequently.</p>
+                    <h4>Keywords:</h4>
+                      <p align="justify">Performance regression, multi-objective optimization, soft-
+ware testing, software quality</p>
+<!--added by Amal-->
+
+                  <ol>
+                    <h4><li>Introduction</li></h4>
+                      <p align="justify">Performance is critical to software quality. Being one of the practices
+of quality assurance, performance regression testing monitors the soft-
+ware's overall performance during its evolution to ensure least to negligi-
+ble degradation of time. It mainly detects whether any committed changes
+may have introduced performance regressions.
+Ideally, in order to prevent any code change from negatively impacting
+the software performance, performance tests, also known as benchmarks,
+should be executed along with any committed change, as a sanity check.
+However, in a real-world setting, performance tests are expensive, and
+with the growth in the number of committed changes, software testers
+are constantly challenged tond the right trade-o between optimally
+performance testing newly introduced changes, and increasing the de-
+velopment overall productivity [6]. Nevertheless, executing Performance
+testing after each commit is an expensive and lengthy process. It repre-
+sents an overhead on resources and it delays programmers from further
+development until the results of testing have been gathered [7]. As a re-
+sult, performance tests are not conducted after each change on the code
+because they consume resources [6]. This practice challenges the early
+nding the performance regression changes. For example, if performance
+tests are postponed by the end of the Sprint, then developers need to
+commit their code throughout the cycle and hope that no performance
+test would fail by the end; otherwise, they have to rewind all previously
+committed changes to debug them. In this context, various research has
+been analyzing performance regression inducing code changes to allow
+their early detection, and to support the prioritization of performance
+regression i.e., for upcoming changes to commit, if any of them exhibits
+characteristics that are similar to these known to have induced perfor-
+mance regression, then this may be a trigger, for software testers, to
+schedule their performance tests.
+To cope with this expensive process, recent studies focus on mining
+performance regression testing repositories to either support performance
+analysis[5, 10, 1], or improve regression strategies [7, 8], or to characterize
+code changes that have introduced regression [11, 2]. Characterizing such
+problematic code changes is complex since it goes beyond the static design
+of the code e.g., coupling and complexity, and it is re
+ected by the dy-
+namic nature of the change e.g., excessive calls to external APIs, besides
+being specic to the projects development practices, and programming
+languages [12].
+This paper denes detecting Performance Regression Introducing Code
+Changes (PRICE) as an optimization problem. Initially, our approach
+takes as input a set of commits that are known to be problematic, then
+analyzes them using static and dynamic metrics, previously used in an
+existing study [11]. Afterward, these commits, with their corresponding
+metric values, are used as a training set for the Non dominated sorting
+genetic algorithm (NSGA-II) [4], which evolves the given metrics to gen-
+erate a detection rule that maximizes the detection of problematic code
+changes. Our experiments were carried out using Git as the system un-
+der test. Ourndings show the ability of the evolutionary algorithm to
+generate promising results, in comparison with state-of-art approaches.</p>
+                      <h4><li>Methodology</li></h4>
+                          <p align="justify">In this section, we give a high-level overview of our approach's work
+ow, then we explain how we designed NSGA-II for detecting performance regression changes.</p>
+                          <ol><h4><li>Approach Overview</li></h4>
+                             <img src="docs/Figures/appoverview.png" align="middle">
+                               <figcaption  align="middle">Fig. 1: Approach Overview.</figcaption>
+                            <p align="justify">The goal of our approach is tond the best rule that detects PRICE.
+The general structure is sketched in Figure 1.
+Our approach is composed of three phases. Collection phase uses history
+performance tests data collected from previous commits to calculate met-
+rics. Metrics represent collected data of each commit to the respect of
+the previous commit. Table 1 lists static and dynamic metrics used in
+this work. Metrics 1,2,6 are static where the rest are both static and dy-
+namic. The tool used to collect static metrics is Lizard code complexity
+analyzer. Static data is afterward fed into dynamic analysis process to
+run benchmarks and calculate dynamic metrics.
+The second phase after collecting metrics is generating a detection
+rule. Finding this rule is a multi-objective optimization problem. A De-
+tection rule should have the highest detection of problematic commits while minimizing the detection of benign commits. The search space con-
+tains solutions with dierent combination of metrics and a value for each
+metric. In this paper, we considered seven metrics from a previous study
+[11], with which we will also compare our approach. Once a detection rule
+is generated, developers can apply it on each commit to detect regression
+and decide whether to run benchmark testing or not. In case benchmark
+testing is applied on a commit, dynamic metrics of that commit is stored
+on the database to help in updating detection rule in the future when
+rule is no longer providing good predictions.</p>
+      <caption align="middle">Table 1: Metrics Descriptions and Rationales.</caption>
+
+                        <table style="width:100%" border="1">
+                         <tr>
+                           <th>#</th>
+                           <th>Description</th>
+                           <th>Rationale</th>
+                         </tr>
+                         <tr>
+                           <td>January</td>
+                           <td>$100</td>
+                           <td>$100</td>
+                         </tr>
+                         <tr>
+                           <td>February</td>
+                           <td>$50</td>
+                           <td>$100</td>
+                         </tr>
+                        </table>
+                                  <h4><li>Data Collection</li></h4>
+                                    <p align="justify">We have selected the Git project to be the system under test of our study.
+                                      We have chosen Git as it is open-source, with a built-in set of benchmarks,
+                                      easy to compile and run (mandatory for our dynamic analysis), besides
+                                      our familiarity with its commands. We collected data for 8798 commits
+                                      originally. Those commits were chosen by executing the `git rev-parse`
+                                      command from the master branch at the time and going back to therst
+                                      commit we couldnd which had performance tests. Across that range of commits, there were 202 commits which, for technical reasons, were
+                                      untestable, so we removed them. Thus in total we considered 8596 com-
+                                      mits.
+                                      Afterward, for each commit, we run all performance tests, and this is
+                                      for two reasons: therst one, we need to see whether any test would fail,
+                                      and if so, we tag the commit under test as problematic.The second reason
+                                      is to dynamically prole each code change and calculate some of metrics
+                                      at runtime. To avoid the
+                                      akiness of some tests and the stochastic nature
+                                      of the code, we test each commit 5 times. Running all of the performance
+                                      tests for a single commit takes a signicant amount of time (hence the
+                                      need for this study), so we parallelized the task across many machines.
+                                      The results of the Git performance tests are reported in wall time, which
+                                      can be impacted by using machines with dierent clock speeds, RAM, etc.,
+                                      so to mitigate this we used identical Virtual machines in a proprietary
+                                      cloud1. The dynamic information was collected using Linux perf [3], as for
+                                      the static information, the list of functions and their location in the source
+                                      code, was collected by using the python lizard 2 tool. While intended
+                                      for calculating cyclomatic complexity, it also provides list of functions
+                                      identied in all of the sourceles in the repository for that commit. We
+                                      provide the dataset and tools we used for reproducibility and extension
+                                      purposes3.</p>
+
+                                <h4><li>Solution Representation</li></h4>
+                                  <p align="justify">Our solution is encoded as a tree-based rule. The leaf nodes are termed
+                                    'terminals' and internal nodes as 'primitives'. Primitives are logical oper-
+                                    ators that compares metric value with the threshold assigned to it respec-
+                                    tively. Figure 2 illustrates a solution tree that combinesve metrics and
+                                    their threshold values by logical operators AND and OR. Solution tree is
+                                    strictly typed to assure structure is not broken during the evolution.</p>
+                                <h4><li>Solution Evaluation</li></h4>
+                                  <p align="justify">Generated rules are evaluated by two objectives, which are hit and dismiss
+rates. This subsection denes these objectives and shows how they are conflicted.</p>
+                                <img src="docs/Figures/Tree_example.png" align="middle">
+                                  <figcaption  align="middle">Fig. 2: Solution representation as a tree-based rule.</figcaption>
+                          </ol>
+                  </ol>
+
                     </div>
             </section>
 
