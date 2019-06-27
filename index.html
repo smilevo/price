@@ -176,7 +176,123 @@ rule is no longer providing good predictions.</p>
 rates. This subsection denes these objectives and shows how they are conflicted.</p>
                                 <img src="docs/Figures/Tree_example.png" align="middle">
                                   <figcaption  align="middle">Fig. 2: Solution representation as a tree-based rule.</figcaption>
+                                  <p align="justify">Hit rate as an objective. The Hit rate indicates the number of cor-
+                                  rectly detected commits to total number of commits encountering regres-
+                                  sion. In formula 1 Hp is predicted problematic commits while H is actual
+                                  regression commits. Values of hit rate are between 0.0 and 1.0. Hit rate of
+                                  1 means that all commits encounter regression are detected. Hit rate can
+                                  also be 1 if all commits considered to be problematic which is not proper
+                                  to this type of problems.</p>
+                                  <p align="justify">jHp \ Hj=jHj (1)</p>
+                                  <p align="justify">Dismiss rate as an objective. The Dismiss rate is the number of
+                                  commits classied not to be introducing regression to the total actual
+                                  number of stable, not problematic, commits. In formula 2 Dp is predicted
+                                  stable commits while D is actual stable commits. Dismiss rate values
+                                  are between 0.0 and 1.0. Dismiss rate of value 1 indicates that all non-
+                                  problematic commits are correctly classied as not introducing regression.
+                                  Dismiss rate of 1 might indicate that all commits are not problematic. It
+                                  cannot be used individually as hit rate.</p>
+                                  <p align="justify">jDp \ Dj=jDj (2)</p>
+                                  <p align="justify">An optimal solution would score a hit and dismiss rate of 1. Since
+                                  hit and dismiss rates are conflicting, when optimizing one objective, we
+                                  automatically degrade the other as shown in Figure 3. Hence, we are
+                                  searching for near optimal solutions that should deliver a good trade-o
+                                  between these objectives that are meant to be maximized.</p>
+
+                                  <h4><li>Solution Variation</li></h4>
+                                    <p align="justify">For the crossover operator, we deploy the Simulated Binary Crossover
+(SBX). Simulated Binary Crossover simulates single point crossover with
+using probability density function. Crossover point is chosen randomly between 1 and the length of the chromosome. In chromosome represented
+as tree, rule in our case, crossover is swapping tree sub-branches. New
+trees will not necessarily be the same size as their parents. It depends on
+crossover point position. If crossover point located close to terminal nodes
+, one o spring might be a single metric where the other is an extended
+tree that might have duplicated metrics with dierent threshold values.
+As for the mutation operator, we use the Polynomial Mutation. This op-
+erator uses polynomial probability distribution to select the node to be
+mutated. Mutation operator depends on node type to insure producing
+a logical rule. For example, primitive nodes, which are connecting termi-
+nal nodes, should always be a comparison operator, which can be either
+greater than or less than.
+Fig.</p>
+                                  <img src="docs/Figures/hit_dismiss_conf.png" align="middle">
+                                    <figcaption  align="middle">Fig. 3: Hit and dismiss are conflicted objectives.</figcaption>
+                                    <p align="justify">Choice of thenal solution. The multi-objective nature of the
+algorithm allows the choice of multiple Pareto-equivalent solutions that
+tend to optimize one objective in comparison with the others. So, software
+testers can choose either to prioritize the hit rate over the dismiss rate if
+the cost of running benchmarks is high or the allowed testing time period
+is relatively short; or they can favor the dismiss rate if they are afraid
+of missing any code change introducing a performance regression, at the
+expense of running extra test cases. For our experiments, we have chosen
+the solution with the highest F-Measure across various runs.</p>
+
                           </ol>
+                          <h4><li>Experimental Setting</li></h4>
+                            <ol><h4><li>Research Questions</li></h4>
+                              <p align="justify">RQ1. To what extent does NSGA-II provide better regression
+detection compared with other techniques?</p>
+
+                              <p align="justify">To address this research question, we applied the 10-fold cross vali-
+                              dation. We initially sort the commits chronologically, then we split them
+                              into 10 equal folds where fold 1 contains the earliest (oldest) commits
+                              subset, all the way to fold 10, which contains the latest commits subset.
+                              The validation is performed using 10 iterations. In each iteration, one fold
+                              is used for testing and the rest is used for training. Note that Folds do
+                              not necessarily contain same number of problematic commits, but since
+                              the majority of folds are used for training, the training set tends to con-
+                              tain signicantly more problematic commits, than the testing set, which
+                              does simulate real world scenarios. Results are compared with k-Nearest
+                              Neighbors algorithm (KNN) and a state-of-the-art approach called Per-
+                              phecy [11]. We choose KNN to see the results of considering the problem
+                              of performance regression as a non-parametric binary classication, where
+                              metrics represent the feature space. We also compare with Perphecy since
+                              it is available online and known to provide good results. Hit and dismiss
+                              rates and F-measure to compare the performance of the three methods.</p>
+
+                              <p align="justify">RQ2. Do the generated rules continue to perform well with
+the evolution of the software?</p>
+                              <p align="justify">This research question challenges the stability of generated rules over
+                              the evolution of the software. As software evolves, with committing a
+                              signicant amount of code changes, the software may undergo several
+                              structural and functional changes, which may change the characteristics
+                              that have been previously captured by the metrics, and so it may con-
+                              sequently hinder the accuracy of the performance detection. To simulate
+                              such scenario, similarly to RQ1, we sort again the commits chronologi-
+                              cally, then we split them into 10 equal folds, where therst fold contains
+                              the oldest commits, all the way to the last fold which contains the newest
+                              commits. Optimally, we aim in splitting the commits that are co-located
+                              in time into a separate fold. By generating the rule only using the oldest
+                              fold, and then testing it on the remaining folds, we intend to see whether
+                              our rule may get obsolete over time i.e., the further is the fold, the harder
+                              should be the rule to detect performance issues.</p>
+                              </ol>
+                              <ol><h4><li>Parameter Tuning</li></h4>
+                              <p align="justify"> For NSGA-II, Dierent values have been used for the population size and
+the maximum number of evaluations, generating a variety of congura-
+tions. We use the trial and error and choose the conguration providing
+better results in terms of hit rate and dismiss rate. We used the follow-
+ing parameters: Population size=50, iterations=10000, Selection=Binary tournament selection without replacement, Simulated Binary Crossover
+probability=0.8, Polynomial Mutation probability=0.5.
+Perphecy combines metrics tond the best rule that better detect
+performance issues in a deterministic way. Before trying all possible met-
+rics combinations tond the best rule, Perphecy determines each metric
+threshold value individually. The combination with highest hit and dis-
+miss rate is selected. The authors of Perphecy applied this process for
+each project separately, as every project has its own characteristics and
+so the nominated rule diers from project to another. In this context, we
+did not reuse any existing rules from the previous study and we had to
+generate a rule for each subset of commits, from Git project.
+For KNN, we use the gap statistic method to estimate the optimal
+number of clusters K. Gap statistic is chosen since it provides a statistical
+procedure to model traditional elbow and silhouette methods. To ensure
+fairness when compared to NSGA-II and Perphecy, we re-estimate K for
+each set of input commits.
+Since our experiments contain a fold cross validation, we tune the
+algorithms together once, for therst fold. To ensure fairness, we regen-
+erate a rule representing each algorithm for every training fold, as we will
+detail later.</p>
+                              </ol>
                   </ol>
 
                     </div>
