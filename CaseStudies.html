@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Case Studies</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.3.1.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.html">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Supplemental.html">Supplementals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Dataset.html">Dataset</a>
+          </li>
+			<li class="nav-item active">
+            <a class="nav-link" href="CaseStudies.html">Case Studies<span class="sr-only">(current)</span></a>
+          </li>
+          
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    <div class="container mt-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="jumbotron">
+            <h1 class="text-center">Case Studies&nbsp;</h1>  
+          </div>
+			
+			<div class="container">
+		  <div class="row">
+			 <div class="text-center col-md-6 col-12 col-xl-7">
+	
+			   <p class="text-justify">We are showing three case studies on commits detected by PRICE. Each case study is from different code change regression root-cause as discovered by Chen et al. <a href="#reference1">Chen et al. [1]</a>. We investigated 20 random commits from <a href="https://git-scm.com/">Git</a> are known to have regression after benchmark testing and tested PRICE rules on those commits. We found that code changes related to the expensive variable are detected only if changes are conducted on top overhead function and will miss detecting regression otherwise. Changes related to functions or condition are mostly detected correctly as there are metrics reflecting those changes. </p>
+             </div>
+			  
+			   <div class="text-center col-md-6 col-12 col-xl-5">
+				<img src="Figures/PieChart.png" width= "450"
+ 					 height= "auto"/>
+				   <p>Figure 1: Regression code level root-cause of commits under study</p>
+			  </div>
+		  </div>
+				</div>
+			
+			<hr>
+			<div class="container">
+				 <h3 class="text-left">Using expensive variables</h3>
+		  <div class="row">
+			  <div class="text-center col-md-6 col-12 col-xl-5">
+					<p class="text-justify">As stated by the developers, the change of this commit is moving one variable to be a part of a struct. Accessing struct defined data memory is more expensive than accessing primitive data types. This code change was detected correctly because it is associated with many minor code changes related to this change in a function known to be from the top overhead.</p>
+				</div>
+			   <div class="text-center col-md-6 col-12 col-xl-7">
+			   
+				<img src="Figures/CaseStudy1.png" width= "600" height= "auto"/>
+				     <p>Figure 2: An example of a commit using memory expensive variables. </p>
+			  </div>
+
+
+			
+		</div>
+		  </div>
+			<hr>
+			
+						<div class="container">
+				 <h3 class="text-left">Changing conditions</h3>
+		  <div class="row">
+			  <div class="text-center col-md-6 col-12 col-xl-5">
+					<p class="text-justify">Changing conditions or adding one implies additional logical operations or even includes function calls. These changes might also change the code branching in some cases. 
+</p>
+				</div>
+			   <div class="text-center col-md-6 col-12 col-xl-7">
+			   
+				<img src="Figures/CaseStudy2.png" width= "600" height= "auto"/>
+				     <p>Figure 3: An example of a commit changing conditions. </p>
+			  </div>
+
+
+			
+		</div>
+		  </div> <hr>
+						<div class="container">
+				 <h3 class="text-left">Changing function calls</h3>
+		  <div class="row">
+			  <div class="text-center col-md-6 col-12 col-xl-5">
+					<p class="text-justify">Changing function calls category includes adding, deleting, or modifying the function signature. Adding a new function and calling it from another code portion as the listed example in Figure 4 is actually adding overhead to the code execution. Regression detectors should detect those changes. PRICE was able to detect this change as metrics indicate a change in the code functions that were part of the detection rule.   </p>
+				</div>
+			   <div class="text-center col-md-6 col-12 col-xl-7">
+			   
+				   File1:
+				<img src="Figures/CaseStudy3_1.png" width= "600" height= "auto"/>
+				   File2:
+			     <img src="Figures/CaseStudy3_2.png" width= "600" height= "auto"/>
+				     <p>Figure 4: An example of a commit adding a new function. File 1 contains the added new function. File 2 contains the call for the new function. </p>
+			  </div>
+
+
+			
+		</div>
+		  </div>
+			
+		  
+		 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+			  <p id="reference1">
+		      Chen, J., & Shang, W. (2017, September). An exploratory study of performance regression introducing code changes. In 2017 ieee international conference on software maintenance and evolution (icsme) (pp. 341-352). IEEE.</p>
+	    </div>
+        </div>
+		</div>
+
+    
+
+    <hr>
+    <footer class="text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <p>Copyright © SMILE
+Research Group. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.3.1.js"></script>
+  </body>
+</html>

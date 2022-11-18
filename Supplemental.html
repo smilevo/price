@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Supplementals</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.3.1.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.html">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="Supplemental.html">Supplementals<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Dataset.html">Dataset</a>
+          </li>
+			<li class="nav-item">
+            <a class="nav-link" href="CaseStudies.html">Case Studies</a>
+          </li>
+          
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    <div class="container mt-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="jumbotron">
+            <h1 class="text-center">Supplementals&nbsp;</h1>  
+          </div>
+		  <div class="row">
+			  
+			<h6><strong>RQ1. What is the impact of including static metrics on the detection performance?</strong></h6>
+<p>Including static metrics might enhance the detection of performance regression. However, those metrics are known to be highly correlated. <a href="#reference1">Autospearman</a> approach is applied to find metrics correlation. In this section, we are applying feature selection over 35 static metrics. To study the impact of including those metrics to light-weight dynamic metrics for regression detection, we are showing the detection results of three datasets: light-weight dynamic metrics only, including all 35 static metrics and including only the non-correlated static metrics. </p>
+			  <hr>
+			  
+		  </div>
+		</div>
+		  
+		  <div class="container">
+      <div class="row">
+	    <div class="text-center col-md-6 col-12 col-xl-12">
+          <h3 class="text-left">Hit Rate</h3>
+          <p class="text-left">Hit rate comparison between applied algorithms on the three datasets. The validation method applied is 10-fold cross-validation.</p>
+        </div>
+			<table>
+				  <tbody>
+					  <tr>
+						  <td><img src="Figures/NSGAII_H.jpg" width= "600"
+  height= "auto"/></td><td><img src="Figures/IBEA_H.jpg" width= "600"
+  height= "auto"/></td>
+						  </tr>
+					  <tr>
+						  <td><h5 class="text-center">NSGAII</h5></td><td><h5 class="text-center">IBEA</h5></td>
+				    </tr>
+					  
+					   <tr>
+						  <td><img src="Figures/PEAS2_H.jpg" width= "600"
+  height= "auto"/></td><td><img src="Figures/SPEA2_H.jpg" width= "600"
+  height= "auto"/></td>
+						  </tr>
+					  <tr>
+						  <td><h5 class="text-center">PEAS-II</h5></td><td><h5 class="text-center">SPEA2</h5></td>
+				    </tr>
+					  
+					   <tr>
+						  <td><img src="Figures/RVEA_H.jpg" width= "600"
+  height= "auto"/></td><td><img src="Figures/DBEA_H.jpg" width= "600"
+  height= "auto"/></td>
+						  </tr>
+					  <tr>
+						  <td><h5 class="text-center">RVEA</h5></td><td><h5 class="text-center">DBEA</h5></td>
+				    </tr>
+					  
+					  </tbody>
+				  
+				  </table>
+		  </div>
+			  </div>
+		  
+		  		  
+		  <div class="container">
+      <div class="row">
+	    <div class="text-center col-md-6 col-12 col-xl-12">
+          <h3 class="text-left">Dismiss Rate</h3>
+          <p class="text-left">Dismiss rate comparison between applied algorithms on the three datasets. The validation method applied is 10-fold cross-validation.</p>
+        </div>
+			<table>
+				  <tbody>
+					  <tr>
+						  <td><img src="Figures/NSGAII_D.jpg" width= "600"
+  height= "auto"/></td><td><img src="Figures/IBEA_D.jpg" width= "600"
+  height= "auto"/></td>
+						  </tr>
+					  <tr>
+						  <td><h5 class="text-center">NSGAII</h5></td><td><h5 class="text-center">IBEA</h5></td>
+				    </tr>
+					  
+					   <tr>
+						  <td><img src="Figures/PEAS2_D.jpg" width= "600"
+  height= "auto"/></td><td><img src="Figures/SPEA2_D.jpg" width= "600"
+  height= "auto"/></td>
+						  </tr>
+					  <tr>
+						  <td><h5 class="text-center">PEAS-II</h5></td><td><h5 class="text-center">SPEA2</h5></td>
+				    </tr>
+					  
+					   <tr>
+						  <td><img src="Figures/RVEA_D.jpg" width= "600"
+  height= "auto"/></td><td><img src="Figures/DBEA_D.jpg" width= "600"
+  height= "auto"/></td>
+						  </tr>
+					  <tr>
+						  <td><h5 class="text-center">RVEA</h5></td><td><h5 class="text-center">DBEA</h5></td>
+				    </tr>
+					  
+					  </tbody>
+				  
+				  </table>
+		  </div>
+			  </div>
+		  
+		  
+
+			  
+		  
+		  		  		  
+		  <div class="container">
+      <div class="row">
+	    <div class="text-center col-md-6 col-12 col-xl-12">
+          <h3 class="text-left">F-measure</h3>
+          <p class="text-left">F-measure comparison between applied algorithms on the three datasets. The validation method applied is 10-fold cross-validation.</p>
+        </div>
+			<table>
+				  <tbody>
+					  <tr>
+						  <td><img src="Figures/NSGAII_F.jpg" width= "600"
+  height= "auto"/></td><td><img src="Figures/IBEA_F.jpg" width= "600"
+  height= "auto"/></td>
+						  </tr>
+					  <tr>
+						  <td><h5 class="text-center">NSGAII</h5></td><td><h5 class="text-center">IBEA</h5></td>
+				    </tr>
+					  
+					   <tr>
+						  <td><img src="Figures/PEAS2_F.jpg" width= "600"
+  height= "auto"/></td><td><img src="Figures/SPEA2_F.jpg" width= "600"
+  height= "auto"/></td>
+						  </tr>
+					  <tr>
+						  <td><h5 class="text-center">PEAS-II</h5></td><td><h5 class="text-center">SPEA2</h5></td>
+				    </tr>
+					  
+					   <tr>
+						  <td><img src="Figures/RVEA_F.jpg" width= "600"
+  height= "auto"/></td><td><img src="Figures/DBEA_F.jpg" width= "600"
+  height= "auto"/></td>
+						  </tr>
+					  <tr>
+						  <td><h5 class="text-center">RVEA</h5></td><td><h5 class="text-center">DBEA</h5></td>
+				    </tr>
+					  
+					  </tbody>
+				  
+				  </table>
+		  </div>
+			  </div>
+		  
+			  
+	   <div>
+		 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+			  <p id="reference1">
+			  Jiarpakdee, J., Tantithamthavorn, C., & Treude, C. (2018, September). Autospearman: Automatically mitigating correlated software metrics for interpreting defect models. In 2018 IEEE International Conference on Software Maintenance and Evolution (ICSME) (pp. 92-103). IEEE Computer Society.</p>
+		  </div>
+		  </div>
+			
+        </div>
+
+    
+    <hr>
+
+    <hr>
+    <footer class="text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <p>Copyright © SMILE
+Research Group. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.3.1.js"></script>
+  </body>
+</html>
